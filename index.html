@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FreshCoat Painters</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+  <link href="/resources/logo.svg" rel="icon" type="image/svg+xml">
+  <style>
+    :root {
+      --primary: #1e3d59;
+      --accent: #ff6f61;
+      --light: #f8f9fa;
+      --text: #333;
+      --error: #dc3545;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    .navbar {
+      background: var(--primary);
+      padding: 1rem 0;
+      transition: background-color 0.3s ease;
+    }
+
+    .navbar-brand {
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: white !important;
+    }
+
+    .nav-link {
+      color: white !important;
+      font-weight: 500;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    .nav-link:hover::after {
+      content: '';
+      position: absolute;
+      width: 50%;
+      height: 2px;
+      background: var(--accent);
+      bottom: -5px;
+      left: 25%;
+      transition: width 0.3s ease;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      overflow: hidden;
+      background: linear-gradient(135deg, rgba(30, 61, 89, 0.9), rgba(58, 96, 115, 0.9)), url('https://cdn.pixabay.com/photo/2017/08/07/14/02/house-2603846_1280.jpg') no-repeat center center/cover;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6));
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      padding: 2rem;
+    }
+
+    .hero h1 {
+      font-weight: 900;
+      font-size: 4rem;
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+      animation: slideInDown 1s ease;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .hero p {
+      font-size: 1.5rem;
+      font-weight: 300;
+      margin-bottom: 2rem;
+      animation: slideInUp 1.2s ease;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    }
+
+    .hero .btn-primary {
+      background: var(--accent);
+      border: none;
+      padding: 1rem 2.5rem;
+      font-size: 1.2rem;
+      font-weight: 700;
+      border-radius: 50px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+      animation: fadeInUp 1.4s ease;
+    }
+
+    .hero .btn-primary:hover {
+      background: #e65b50;
+      transform: translateY(-5px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .hero .btn-secondary {
+      background: transparent;
+      border: 2px solid white;
+      color: white;
+      padding: 0.75rem 2rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border-radius: 50px;
+      margin-left: 1rem;
+      transition: background 0.3s ease, color 0.3s ease;
+      animation: fadeInUp 1.6s ease;
+    }
+
+    .hero .btn-secondary:hover {
+      background: white;
+      color: var(--primary);
+    }
+
+    .service-card {
+      border: none;
+      border-radius: 10px;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      background: white;
+    }
+
+    .service-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .service-card i {
+      color: var(--accent);
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .service-card h5 {
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .about-section {
+      background: var(--light);
+      padding: 6rem 0;
+      position: relative;
+    }
+
+    .about-section h2 {
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+      animation: fadeInUp 1s ease;
+    }
+
+    .about-section p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+      animation: fadeInUp 1.2s ease;
+    }
+
+    .about-section .btn {
+      background: var(--accent);
+      border: none;
+      padding: 0.75rem 2rem;
+      font-weight: 600;
+      transition: background 0.3s ease, transform 0.3s ease;
+      animation: fadeInUp 1.4s ease;
+    }
+
+    .about-section .btn:hover {
+      background: #e65b50;
+      transform: translateY(-3px);
+    }
+
+    .about-section .carousel {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      animation: fadeInUp 1.6s ease;
+    }
+
+    .about-section .carousel img {
+      object-fit: cover;
+      height: 400px;
+      width: 100%;
+    }
+
+    .about-section .carousel-caption {
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 8px;
+      padding: 0.5rem 1rem;
+    }
+
+    .contact-section {
+      background: var(--light);
+      padding: 6rem 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, rgba(255, 111, 97, 0.1), rgba(30, 61, 89, 0.1));
+      z-index: 1;
+      animation: drip 12s infinite ease-in-out;
+    }
+
+    .contact-section .container {
+      position: relative;
+      z-index: 2;
+    }
+
+    .contact-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: stretch;
+    }
+
+    .contact-card {
+      background: white;
+      border-radius: 12px;
+      padding: 2.5rem;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      transition: transform 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .contact-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .contact-info h5 {
+      color: var(--primary);
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+
+    .contact-info p {
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      transition: background 0.3s ease;
+      padding: 0.5rem;
+      border-radius: 8px;
+    }
+
+    .contact-info p:hover {
+      background: rgba(255, 111, 97, 0.1);
+    }
+
+    .contact-info i {
+      color: var(--accent);
+      margin-right: 1rem;
+      font-size: 1.5rem;
+      transition: transform 0.3s ease;
+    }
+
+    .contact-info p:hover i {
+      transform: scale(1.2);
+    }
+
+    .contact-info a {
+      color: var(--text);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .contact-info a:hover {
+      color: var(--accent);
+    }
+
+    .contact-form .form-floating {
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    .contact-form .form-control {
+      border-radius: 8px;
+      border: 1px solid #ced4da;
+      padding: 0.75rem;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+    }
+
+    .contact-form .form-control:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 8px rgba(255, 111, 97, 0.3);
+      transform: scale(1.01);
+    }
+
+    .contact-form .form-control.is-invalid {
+      border-color: var(--error);
+      background: #fff5f5;
+    }
+
+    .contact-form .form-floating > .form-control:focus ~ label,
+    .contact-form .form-floating > .form-control:not(:placeholder-shown) ~ label {
+      transform: scale(0.85) translateY(-1.5rem) translateX(0.15rem);
+      color: var(--accent);
+      background: white;
+      padding: 0 0.25rem;
+    }
+
+    .contact-form .btn-primary {
+      background: var(--accent);
+      border: none;
+      padding: 0.75rem 2rem;
+      font-weight: 600;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+
+    .contact-form .btn-primary:hover {
+      background: #e65b50;
+      transform: translateY(-3px);
+    }
+
+    .contact-form .btn-primary:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+
+    .progress-indicator {
+      display: none;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 24px;
+      height: 24px;
+      border: 3px solid var(--accent);
+      border-top: 3px solid transparent;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    .success-message,
+    .error-message {
+      display: none;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-top: 1rem;
+      text-align: center;
+      animation: slideIn 0.5s ease;
+    }
+
+    .success-message {
+      background: #d4edda;
+      color: #155724;
+    }
+
+    .error-message {
+      background: #f8d7da;
+      color: #721c24;
+    }
+
+    .map-container {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      margin-top: 1.5rem;
+      height: 250px;
+      transition: transform 0.3s ease;
+      flex-grow: 1;
+    }
+
+    .map-container:hover {
+      transform: scale(1.02);
+    }
+
+    footer {
+      background: var(--primary);
+      color: white;
+      padding: 4rem 0 2rem;
+    }
+
+    footer h5 {
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      color: var(--accent);
+    }
+
+    footer a {
+      color: white;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    footer a:hover {
+      color: var(--accent);
+    }
+
+    footer .social-icons a {
+      font-size: 1.5rem;
+      margin: 0 0.75rem;
+      color: white;
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+
+    footer .social-icons a:hover {
+      color: var(--accent);
+      transform: translateY(-3px);
+    }
+
+    footer .newsletter-form {
+      max-width: 300px;
+      margin: 0 auto;
+    }
+
+    footer .newsletter-form .form-control {
+      border-radius: 8px 0 0 8px;
+      border: none;
+    }
+
+    footer .newsletter-form .btn {
+      background: var(--accent);
+      border: none;
+      border-radius: 0 8px 8px 0;
+      transition: background 0.3s ease;
+    }
+
+    footer .newsletter-form .btn:hover {
+      background: #e65b50;
+    }
+
+    footer .bottom-bar {
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      padding-top: 1rem;
+      margin-top: 2rem;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes drip {
+      0%, 100% {
+        transform: translateY(0);
+        opacity: 0.3;
+      }
+      50% {
+        transform: translateY(20px);
+        opacity: 0.5;
+      }
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+      .hero p {
+        font-size: 1.2rem;
+      }
+      .hero {
+        min-height: 80vh;
+        padding: 6rem 1rem;
+      }
+      .hero .btn-primary {
+        padding: 0.75rem 2rem;
+        font-size: 1rem;
+      }
+      .hero .btn-secondary {
+        padding: 0.5rem 1.5rem;
+        font-size: 0.9rem;
+        margin-left: 0.5rem;
+      }
+      .about-section .carousel {
+        max-height: 200px; /* Reduce carousel height for mobile */
+        overflow: hidden; /* Prevent overflow */
+      }
+      .about-section .carousel img {
+        height: 200px; /* Smaller image height for mobile */
+        object-fit: cover; /* Ensure image scales properly */
+      }
+      .about-section .carousel-caption {
+        display: none; /* Hide captions on mobile for cleaner look */
+      }
+      .contact-card {
+        margin-bottom: 2rem;
+        height: auto; /* Reset height for mobile */
+      }
+      .map-container {
+        height: 200px;
+      }
+      footer .col-md-4 {
+        margin-bottom: 2rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">FreshCoat Painters</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero" id="home">
+    <div class="container hero-content">
+      <h1>Revitalize Your Space with Expert Painting</h1>
+      <p>Transform your home or business with our professional painting services, crafted with precision and care.</p>
+      <div>
+        <a href="#contact" style="margin:10px;" class="btn btn-primary" aria-label="Get a free quote">Get a Free Quote</a>
+        <a href="#services" class="btn btn-secondary" aria-label="Explore our services">Explore Services</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="py-5" id="services">
+    <div class="container">
+      <h2 class="text-center mb-5 fw-bold">Our Services</h2>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="card service-card h-100 text-center p-4">
+            <i class="fas fa-paint-roller"></i>
+            <div class="card-body">
+              <h5 class="card-title">Interior Painting</h5>
+              <p class="card-text">Revitalize your living spaces with vibrant, durable colors tailored to your style.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card service-card h-100 text-center p-4">
+            <i class="fas fa-home"></i>
+            <div class="card-body">
+              <h5 class="card-title">Exterior Painting</h5>
+              <p class="card-text">Enhance curb appeal and protect your property with premium exterior finishes.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card service-card h-100 text-center p-4">
+            <i class="fas fa-building"></i>
+            <div class="card-body">
+              <h5 class="card-title">Commercial Services</h5>
+              <p class="card-text">Custom painting solutions for offices, retail, and facilities with minimal disruption.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="about-section" id="about">
+    <div class="container">
+      <h2 class="text-center mb-5 fw-bold">About FreshCoat Painters</h2>
+      <div class="row g-5 align-items-center">
+        <div class="col-lg-6">
+          <div id="aboutCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="https://cdn.pixabay.com/photo/2016/11/18/17/46/house-1836070_1280.jpg" class="d-block w-100" alt="Interior painting project">
+                <div class="carousel-caption d-none d-md-block">
+                  <h5>Interior Transformation</h5>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <img src="https://cdn.pixabay.com/photo/2023/11/01/11/46/ai-generated-8357369_640.jpg" class="d-block w-100" alt="Exterior painting project">
+                <div class="carousel-caption d-none d-md-block">
+                  <h5>Exterior Makeover</h5>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <img src="https://cdn.pixabay.com/photo/2024/02/08/13/45/ai-generated-8561126_1280.jpg" class="d-block w-100" alt="Commercial painting project">
+                <div class="carousel-caption d-none d-md-block">
+                  <h5>Commercial Excellence</h5>
+                </div>
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#aboutCarousel" data-bs-slide="prev" aria-label="Previous slide">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#aboutCarousel" data-bs-slide="next" aria-label="Next slide">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            </button>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <h2>Our Story</h2>
+          <p>With over 15 years of experience, FreshCoat Painters is dedicated to transforming spaces with precision and passion. Our mission is to deliver high-quality painting services that exceed expectations, whether it’s a cozy home or a bustling commercial space.</p>
+          <p><strong>Our Values:</strong> Quality craftsmanship, customer satisfaction, and eco-friendly practices. We use premium materials and modern techniques to ensure lasting results.</p>
+          <a href="#contact" class="btn btn-primary">Get in Touch</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact-section" id="contact">
+    <div class="container">
+      <h2 class="text-center mb-5 fw-bold">Start Your Painting Project</h2>
+      <div class="row g-5 contact-row">
+        <div class="col-lg-5">
+          <div class="contact-card">
+            <h5>Contact Information</h5>
+            <p>
+              <i class="fas fa-phone"></i>
+              <a href="tel:+1234567890" aria-label="Phone number">+1 (234) 567-890</a>
+            </p>
+            <p>
+              <i class="fas fa-envelope"></i>
+              <a href="mailto:info@freshcoatpainters.com" aria-label="Email address">info@freshcoatpainters.com</a>
+            </p>
+            <p>
+              <i class="fas fa-map-marker-alt"></i>
+              123 Colorful Lane, Paint City, PC 12345
+            </p>
+            <div class="map-container">
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.019849294146!2d-122.4194156846813!3d37.77492977975966!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzfCsDU5JzA1LjciTiAxMjLCsDI1JzA5LjkiVw!5e0!3m2!1sen!2sus!4v1634567890123" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" aria-label="Location map"></iframe>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-7">
+          <div class="contact-card">
+            <form class="contact-form" id="contactForm" novalidate>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <div class="form-floating">
+                    <input type="text" class="form-control" id="name" placeholder="Your Name" required aria-describedby="nameError">
+                    <label for="name">Your Name</label>
+                    <div class="error-message" id="nameError">Please enter your name.</div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-floating">
+                    <input type="email" class="form-control" id="email" placeholder="Your Email" required aria-describedby="emailError">
+                    <label for="email">Your Email</label>
+                    <div class="error-message" id="emailError">Please enter a valid email address.</div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-floating">
+                    <input type="tel" class="form-control" id="phone" placeholder="Your Phone" required aria-describedby="phoneError">
+                    <label for="phone">Your Phone</label>
+                    <div class="error-message" id="phoneError">Please enter a valid phone number.</div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-floating">
+                    <input type="text" class="form-control" id="subject" placeholder="Subject" required aria-describedby="subjectError">
+                    <label for="subject">Subject</label>
+                    <div class="error-message" id="subjectError">Please enter a subject.</div>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="form-floating">
+                    <textarea class="form-control" id="message" placeholder="Your Message" style="height: 100px;" required aria-describedby="messageError"></textarea>
+                    <label for="message">Your Message</label>
+                    <div class="error-message" id="messageError">Please enter your message.</div>
+                  </div>
+                </div>
+                <div class="col-12 text-center">
+                  <button type="submit" class="btn btn-primary position-relative" id="submitButton">
+                    Send Message
+                    <div class="progress-indicator"></div>
+                  </button>
+                </div>
+              </div>
+              <div class="success-message" id="successMessage">Your message has been sent successfully!</div>
+              <div class="error-message" id="errorMessage">There was an error sending your message. Please try again.</div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <h5>FreshCoat Painters</h5>
+          <p>Transforming spaces with quality painting services since 2008. Let’s bring your vision to life!</p>
+        </div>
+        <div class="col-md-4">
+          <h5>Quick Links</h5>
+          <ul class="list-unstyled">
+            <li><a href="#services">Services</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <h5>Stay Connected</h5>
+          <div class="social-icons">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          </div>
+          <div class="newsletter-form mt-3">
+            <form class="input-group">
+              <input type="email" class="form-control" placeholder="Your Email" aria-label="Newsletter email">
+              <button class="btn" type="submit">Subscribe</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="bottom-bar text-center">
+        <p>© 2025 FreshCoat Painters. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.getElementById('contactForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      // Reset previous error states
+      const inputs = ['name', 'email', 'phone', 'subject', 'message'];
+      inputs.forEach(id => {
+        const input = document.getElementById(id);
+        const error = document.getElementById(`${id}Error`);
+        input.classList.remove('is-invalid');
+        error.style.display = 'none';
+      });
+      document.getElementById('successMessage').style.display = 'none';
+      document.getElementById('errorMessage').style.display = 'none';
+
+      // Validate inputs
+      let isValid = true;
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const subject = document.getElementById('subject').value.trim();
+      const message = document.getElementById('message').value.trim();
+
+      if (!name) {
+        showError('name', 'nameError');
+        isValid = false;
+      }
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showError('email', 'emailError');
+        isValid = false;
+      }
+      if (!phone || !/^\+?\d{10,15}$/.test(phone.replace(/\D/g, ''))) {
+        showError('phone', 'phoneError');
+        isValid = false;
+      }
+      if (!subject) {
+        showError('subject', 'subjectError');
+        isValid = false;
+      }
+      if (!message) {
+        showError('message', 'messageError');
+        isValid = false;
+      }
+
+      if (!isValid) return;
+
+      // Show loading indicator
+      const submitButton = document.getElementById('submitButton');
+      const progressIndicator = submitButton.querySelector('.progress-indicator');
+      submitButton.disabled = true;
+      progressIndicator.style.display = 'block';
+
+      // Simulate form submission (replace with actual API call)
+      setTimeout(() => {
+        const success = Math.random() > 0.2; // 80% success rate for demo
+        submitButton.disabled = false;
+        progressIndicator.style.display = 'none';
+
+        if (success) {
+          document.getElementById('successMessage').style.display = 'block';
+          document.getElementById('contactForm').reset();
+        } else {
+          document.getElementById('errorMessage').style.display = 'block';
+        }
+      }, 1500);
+    });
+
+    function showError(inputId, errorId) {
+      const input = document.getElementById(inputId);
+      const error = document.getElementById(errorId);
+      input.classList.add('is-invalid');
+      error.style.display = 'block';
+    }
+  </script>
+</body>
+
+</html>
